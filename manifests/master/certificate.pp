@@ -21,7 +21,7 @@ class puppet::master::certificate (
   }
 
   exec { 'link-ca-crl':
-    command => '/bin/ln -s ./crl.pem ./ca/ca_crl.pem',
+    command => '/bin/ln -s ../crl.pem ./ca/ca_crl.pem',
     creates => "${puppet_ssl}/ca/ca_crl.pem",
     cwd     => $puppet_ssl,
     require => Exec['create-ca-directory', 'puppet-cert-request'],
