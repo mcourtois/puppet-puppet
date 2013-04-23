@@ -1,6 +1,6 @@
 # puppet
 
-[![Build Status](https://travis-ci.org/spiette/puppet-puppet.png)](https://travis-ci.org/spiette/puppet-puppet)
+[![Build Status](https://travis-ci.org/mcourtois/puppet-puppet.png)](https://travis-ci.org/mcourtois/puppet-puppet)
 
 This is the puppet module. It is under construction and lack many basic features. Come back soon.
 
