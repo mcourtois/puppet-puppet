@@ -56,7 +56,7 @@ class puppet (
   $hieraconfig=undef,
   $passenger=false,
   $puppetdb=false,
-  $autosign=false,
+  $autosign=[],
 ) {
 
   include puppet::config

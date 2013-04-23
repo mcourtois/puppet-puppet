@@ -1,6 +1,6 @@
 # == Class: puppet::master
 class puppet::master(
-  $autosign=false,
+  $autosign=[],
   $passenger=false,
   $certname=$::fqdn,
   $puppetdb=false,
@@ -64,8 +64,8 @@ class puppet::master(
   Package[$puppetmaster] -> Package <| tag == 'puppetdb' |>
 
   # Autosign since we don't want to manage certificate at this point
-  if $autosign {
-    include puppet::master::autosign
+  class { 'puppet::master::autosign':
+    autosign => $autosign,
   }
 
   class { 'puppet::master::hiera':
