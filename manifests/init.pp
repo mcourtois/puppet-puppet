@@ -53,6 +53,7 @@ class puppet (
   $master_options={},
   $ca=true,
   $ca_server=undef,
+  $hieraconfig=undef,
   $passenger=false,
   $puppetdb=false,
   $autosign=false,
@@ -68,12 +69,13 @@ class puppet (
 
   if $master {
     class { 'puppet::master':
-      ca        => $ca,
-      autosign  => $autosign,
-      passenger => $passenger,
-      certname  => $certname,
-      puppetdb  => $puppetdb,
-      options   => $master_options,
+      ca          => $ca,
+      autosign    => $autosign,
+      passenger   => $passenger,
+      certname    => $certname,
+      puppetdb    => $puppetdb,
+      options     => $master_options,
+      hieraconfig => $hieraconfig,
     } -> anchor { 'puppet::end': }
   } else {
     Class['puppet::agent'] -> anchor { 'puppet::end': }
