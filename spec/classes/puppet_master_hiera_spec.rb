@@ -9,6 +9,22 @@ server = 'puppet.domain.local'
       :group => 'puppet',
       :mode  => '0600'
     }
+hiera_yaml_content = '---
+:backends:
+  - yaml
+:hierarchy:
+  - defaults
+  - %{::fqdn}
+  - %{::environment}
+  - policy
+
+:yaml:
+# datadir is empty here, so hiera uses its defaults:
+# - /var/lib/hiera on *nix
+# - %CommonAppData%\PuppetLabs\hiera\var on Windows
+# When specifying a datadir, make sure the directory exists.
+  :datadir: /etc/puppet/hieradata
+'
 
 describe 'puppet::master::hiera' do
   let(:title) { 'puppet::master::hiera' }
@@ -27,14 +43,14 @@ describe 'puppet::master::hiera' do
     it { should create_file('/etc/puppet/hiera.yaml')\
       .with(permissions.merge( {
         :ensure => :present,
-        :source => 'puppet:///modules/puppet/hiera.yaml'
+        :content => hiera_yaml_content
         } ) ) }
   end
 
   context "class with parameters" do
     let(:params) { {
       :ensure => 'latest',
-      :hieraconfig => 'puppet:///files/hiera.yaml'
+      :hieraconfig_content => 'my awesome content'
     } }
     let(:facts) { {
       :osfamily => 'Debian',
@@ -45,7 +61,7 @@ describe 'puppet::master::hiera' do
       .with(permissions.merge({ :ensure => :directory }) ) }
     it { should create_file('/etc/puppet/hiera.yaml')\
       .with(permissions.merge(
-        { :source => 'puppet:///files/hiera.yaml' }
+        { :content => 'my awesome content' }
       ))}
     it { should create_package('hiera')\
       .with( :ensure => :latest) }

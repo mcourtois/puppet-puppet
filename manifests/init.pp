@@ -55,7 +55,7 @@ class puppet (
   $master_options=undef,
   $ca=true,
   $ca_server=undef,
-  $hieraconfig=undef,
+  $hieraconfig_content=undef,
   $passenger=false,
   $puppetdb=false,
   $autosign=[],
@@ -78,7 +78,7 @@ class puppet (
       certname    => $certname,
       puppetdb    => $puppetdb,
       options     => $master_options,
-      hieraconfig => $hieraconfig,
+      hieraconfig_content => $hieraconfig_content,
     } -> anchor { 'puppet::end': }
   } else {
     Class['puppet::agent'] -> anchor { 'puppet::end': }

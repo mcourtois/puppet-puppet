@@ -22,7 +22,7 @@
 #
 class puppet::master::hiera (
   $ensure = present,
-  $hieraconfig = "puppet:///modules/${module_name}/hiera.yaml",
+  $hieraconfig_content = template("${module_name}/hiera_yaml.erb"),
 ) {
   file { '/etc/puppet/hieradata':
     ensure => directory,
@@ -32,11 +32,11 @@ class puppet::master::hiera (
   }
 
   file { '/etc/puppet/hiera.yaml':
-    ensure => present,
-    owner  => 'puppet',
-    group  => 'puppet',
-    mode   => '0600',
-    source => $hieraconfig,
+    ensure  => present,
+    owner   => 'puppet',
+    group   => 'puppet',
+    mode    => '0600',
+    content => $hieraconfig_content,
   }
 
   if $ensure in [ present, latest ] {

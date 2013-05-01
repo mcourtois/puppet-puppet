@@ -25,7 +25,7 @@ class puppet::master(
   $passenger=false,
   $certname=$::fqdn,
   $puppetdb=false,
-  $hieraconfig=undef,
+  $hieraconfig_content=undef,
   $ca=true,
   $options=undef,
 ){
@@ -90,7 +90,7 @@ class puppet::master(
   }
 
   class { 'puppet::master::hiera':
-    hieraconfig => $hieraconfig,
+    hieraconfig_content => $hieraconfig_content,
   }
 
   file { '/var/lib/puppet/reports':
