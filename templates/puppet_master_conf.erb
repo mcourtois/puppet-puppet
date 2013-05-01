@@ -10,6 +10,6 @@ dns_alt_names = <%= dns_alt_names %>
 #Needed for passenger support
 ssl_client_header = SSL_CLIENT_S_DN
 ssl_client_verify_header = SSL_CLIENT_VERIFY
-<% if @options.is_a?(Hash) then @options.each do | option, value | -%>
-<%= option %> = <%= value %>
+<% if @options.is_a?(Hash) then @options.keys.sort.each do | option | -%>
+<%= option %> = <%= @options[option] %>
 <% end %><% end -%>

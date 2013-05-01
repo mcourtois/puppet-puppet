@@ -45,12 +45,14 @@
 # === Copyright
 #
 # Copyright 2013 Simon Piette <simon.piette@savoirfairelinux.com>
+# Apache 2.0 Licence
 #
 class puppet (
   $certname=$::fqdn,
   $server='puppet',
   $master=false,
-  $master_options={},
+  $agent_options=undef,
+  $master_options=undef,
   $ca=true,
   $ca_server=undef,
   $hieraconfig=undef,
@@ -65,6 +67,7 @@ class puppet (
     server    => $server,
     certname  => $certname,
     ca_server => $ca_server,
+    options   => $agent_options,
   }
 
   if $master {

@@ -11,6 +11,15 @@
 # [*hieraconfig*]
 #   a source option to override the one provided with the module
 #
+# === Author
+#
+# Simon Piette <simon.piette@savoirfairelinux.com>
+#
+# === Copyright
+#
+# Copyright 2013 Simon Piette <simon.piette@savoirfairelinux.com>
+# Apache 2.0 Licence
+#
 class puppet::master::hiera (
   $ensure = present,
   $hieraconfig = "puppet:///modules/${module_name}/hiera.yaml",

@@ -1,5 +1,5 @@
 # === Class: puppet::agent::config
-class puppet::agent::config {
+class puppet::agent::config ($options = undef) {
   # Note that puppet agent or master are restarted if needed
   concat::fragment {'puppet_main_conf':
     target  => '/etc/puppet/puppet.conf',

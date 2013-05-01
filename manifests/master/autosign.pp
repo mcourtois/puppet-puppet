@@ -2,6 +2,7 @@
 class puppet::master::autosign(
   $autosign = [],
 ) {
+  validate_array($autosign)
   file { '/etc/puppet/autosign.conf':
     ensure  => present,
     owner   => puppet,

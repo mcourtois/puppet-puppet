@@ -5,7 +5,7 @@
   - defaults
   - %{::fqdn}
   - %{::environment}
-  - global
+  - policy
 
 :yaml:
 # datadir is empty here, so hiera uses its defaults:

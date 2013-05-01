@@ -1,8 +1,10 @@
 [agent]
-# TODO: report, splay, interval
 server      = <%= @server %>
 #Set the environment for THIS machine
 environment = <%= @environment %>
 <% if defined?(@ca_server) -%>
 ca_server = <%= @ca_server %>
 <% end-%>
+<% if @options.is_a?(Hash) then @options.keys.sort.each do | option | -%>
+<%= option %> = <%= @options[option] %>
+<% end %><% end -%>

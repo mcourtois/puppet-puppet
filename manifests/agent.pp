@@ -1,10 +1,31 @@
 # == Class: puppet::agent
+# This class manage the puppet agent configuration and service.
+# It is not meant to be called directly. Use the puppet class instead.
+#
+# === Parameters
+# The following parameters are different from the puppet class:
+#
+# [*environment*]
+#   Set the environment under which the agent will run.
+#
+# [*options*]
+#   Will apply agent_options from the puppet class.
+#
+# === Author
+#
+# Simon Piette <simon.piette@savoirfairelinux.com>
+#
+# === Copyright
+#
+# Copyright 2013 Simon Piette <simon.piette@savoirfairelinux.com>
+# Apache 2.0 Licence
+#
 class puppet::agent (
   $server = 'puppet',
   $ca_server = undef,
-  $runinterval = '1800',
   $environment = 'production',
   $certname = $::fqdn,
+  $options = undef,
   ){
   anchor { 'puppet::agent::begin': }->
   Package['puppet']->
@@ -14,7 +35,9 @@ class puppet::agent (
 
   include concat::setup
   include puppet::config
-  include puppet::agent::config
+  class { 'puppet::agent::config':
+    options => $options,
+  }
 
   package { 'puppet':
     ensure => present

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 fqdn = 'master.domain.local'
-autosign = 'true'
+autosign = ['*']
 puppetmaster_package = 'puppetmaster'
 puppetmaster_service = 'puppetmaster'
 ca = 'false'

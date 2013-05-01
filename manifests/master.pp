@@ -1,4 +1,25 @@
 # == Class: puppet::master
+# This class manage the puppet master configuration and service.
+# It is not meant to be called directly. Use the puppet class instead.
+#
+# === Parameters
+# The following parameters are different from the puppet class:
+#
+# [*hieraconfig*]
+#   A source of your hiera.yaml configuration file. Defaults to 'puppet:///modules/puppet/hiera.yaml'.
+#
+# [*options*]
+#   Will apply master_options from the puppet class.
+#
+# === Author
+#
+# Simon Piette <simon.piette@savoirfairelinux.com>
+#
+# === Copyright
+#
+# Copyright 2013 Simon Piette <simon.piette@savoirfairelinux.com>
+# Apache 2.0 Licence
+#
 class puppet::master(
   $autosign=[],
   $passenger=false,
@@ -6,7 +27,7 @@ class puppet::master(
   $puppetdb=false,
   $hieraconfig=undef,
   $ca=true,
-  $options= {},
+  $options=undef,
 ){
   include puppet::params
   include puppet::config
