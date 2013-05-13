@@ -4,23 +4,24 @@ package = 'puppet'
 service = package
 fqdn = 'agent.domain.local'
 server = 'puppet.domain.local'
+alt_dns_names = 'puppet'
 
 describe 'puppet::master::certificate' do
   let(:title) { 'puppet::certificate' }
+  let(:facts) { {
+    :osfamily => 'Debian',
+    :fqdn => fqdn
+  } }
 
   context "class with some parameters" do 
-    let(:facts) { {
-      :osfamily => 'Debian',
-      :fqdn => fqdn
-    } }
-
+    it { should include_class('puppet') }
     it { should create_class('puppet::master::certificate') }
     it { should create_package('puppet') }
     it { should create_exec('puppet-cert-request')\
       .with(
         'command' => /agent.*#{fqdn}/,
         'creates' => /.*#{fqdn}.pem/,
-        'timeout' => '180'
+        'timeout' => '130'
       ) }
     it { should create_exec('create-ca-directory')\
       .with(
