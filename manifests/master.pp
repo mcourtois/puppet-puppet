@@ -28,6 +28,7 @@ class puppet::master(
   $hieraconfig_content=undef,
   $ca=true,
   $options=undef,
+  $ensure='present',
 ){
   include puppet::params
   include puppet::config
@@ -58,7 +59,7 @@ class puppet::master(
   }
 
   package { $puppetmaster:
-    ensure => present,
+    ensure => $ensure,
   }
 
   include puppet::master::service

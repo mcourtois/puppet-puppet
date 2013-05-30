@@ -26,6 +26,7 @@ class puppet::agent (
   $environment = 'production',
   $certname = $::fqdn,
   $options = undef,
+  $ensure = 'present',
   ){
   anchor { 'puppet::agent::begin': }->
   Package['puppet']->
@@ -40,7 +41,7 @@ class puppet::agent (
   }
 
   package { 'puppet':
-    ensure => present
+    ensure => $ensure,
   }
 
   service { 'puppet':

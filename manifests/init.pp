@@ -59,6 +59,7 @@ class puppet (
   $passenger=false,
   $puppetdb=false,
   $autosign=[],
+  $ensure='present',
 ) {
 
   include puppet::config
@@ -68,17 +69,19 @@ class puppet (
     certname  => $certname,
     ca_server => $ca_server,
     options   => $agent_options,
+    ensure    => $ensure,
   }
 
   if $master {
     class { 'puppet::master':
-      ca          => $ca,
-      autosign    => $autosign,
-      passenger   => $passenger,
-      certname    => $certname,
-      puppetdb    => $puppetdb,
-      options     => $master_options,
+      ca                  => $ca,
+      autosign            => $autosign,
+      passenger           => $passenger,
+      certname            => $certname,
+      puppetdb            => $puppetdb,
+      options             => $master_options,
       hieraconfig_content => $hieraconfig_content,
+      ensure              => $ensure,
     } -> anchor { 'puppet::end': }
   } else {
     Class['puppet::agent'] -> anchor { 'puppet::end': }
